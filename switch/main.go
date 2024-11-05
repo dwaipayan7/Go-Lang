@@ -22,36 +22,30 @@ func main() {
 		fmt.Println("Wrong Input")
 	}
 
-
 	month := "January"
 
 	switch month {
 	case "January":
-		fmt.Println("Winter");
+		fmt.Println("Winter")
 	case "February":
 		fmt.Println("Spring")
-	
-	default: fmt.Println("Wrong Input")
+
+	default:
+		fmt.Println("Wrong Input")
 	}
 
 	temperature := 25
 	switch {
 	case temperature <= 0:
-	fmt.Println("Freezing")
+		fmt.Println("Freezing")
 	case temperature >= 0 && temperature < 10:
-   fmt.Println("Cold")
+		fmt.Println("Cold")
 	case temperature >= 10 && temperature < 20:
-	fmt.Println("Cool")
+		fmt.Println("Cool")
 	case temperature >= 20 && temperature < 30:
-	fmt.Println("Warm")
+		fmt.Println("Warm")
 	default:
-	fmt.Println("Hot")
+		fmt.Println("Hot")
 	}
 
-
-
 }
-
-
-
-
