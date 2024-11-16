@@ -7,8 +7,8 @@ import (
 
 func main() {
 	fmt.Println("Dwaipayan URL")
-	myUrl := "https://www.dwaipayan.com"
-	fmt.Printf("%T",myUrl)
+	myUrl := "https://www.youtube.com/watch?v=vu6ZQ-t1sUk&list=PLzjZaW71kMwSEVpdbHPr0nPo5zdzbDulm&index=29"
+	fmt.Printf("%T", myUrl)
 
 	parsedURL, err := url.Parse(myUrl)
 
@@ -17,9 +17,19 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%T",parsedURL)
+	fmt.Printf("%T", parsedURL)
 
+	fmt.Println("Scheme: ", parsedURL.Scheme)
+	fmt.Println("Host: ", parsedURL.Host)
+	fmt.Println("Path: ", parsedURL.Path)
+	fmt.Println("RawQuery: ", parsedURL.RawQuery)
 
+	//modifying
+	parsedURL.Path = "/newPath"
+	parsedURL.RawQuery = "username = dwaipayan"
 
+	newUrl := parsedURL.String()
+
+	fmt.Printf("newUrl: ", newUrl)
 
 }
