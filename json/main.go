@@ -29,5 +29,9 @@ func main() {
 	//Decoding
 	var personData Person
 	err = json.Unmarshal(jsonData, &personData)
+	if err != nil {
+		fmt.Printf("Getting error")
+	}
+	fmt.Println(personData)
 
 }
