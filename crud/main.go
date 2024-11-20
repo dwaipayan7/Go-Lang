@@ -75,11 +75,56 @@ func performPostRequest(){
 
 }
 
+func performUpdateRequest(){
+	todo := Todo{
+		UserID: 8,
+		Title: "Dwaipayan Biswas",
+		Completed: true,
+	}
+
+		
+	jsonData, err := json.Marshal(todo)
+
+	if err != nil {
+		fmt.Println("Error Marshalling",err)
+		return
+	}
+
+	const myUrl = "https://jsonplaceholder.typicode.com/todos/1";
+
+	//create put request
+	jsonString := string(jsonData)
+
+	jsonReader := strings.NewReader(jsonString)
+
+	req, err := http.NewRequest(http.MethodPut,myUrl, jsonReader)
+	if err != nil {
+		fmt.Println("Error creating PUT Request", err)
+		return
+	}
+	req.Header.Set("Content-type","application/json")
+
+	//send the request
+	client := http.Client{}
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Error sending request: ", err)
+		return
+	}
+	defer res.Body.Close()
+	data,_ := ioutil.ReadAll(res.Body)
+	fmt.Println("Response: ",string(data))
+	fmt.Println("Response status: ",res.Status)
+	
+}
+
 func main() {
 	fmt.Println("Learning CRUD in GO")
 
-	performGetRequest()
+	// performGetRequest()
 
-	performPostRequest()
+	// performPostRequest()
+
+	performUpdateRequest()
 
 }
