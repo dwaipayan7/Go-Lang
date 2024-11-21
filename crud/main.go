@@ -42,17 +42,17 @@ func performGetRequest() {
 
 }
 
-func performPostRequest(){
-	 todo := Todo{
-		UserID: 22,
-		Title: "Dwaipayan",
+func performPostRequest() {
+	todo := Todo{
+		UserID:    22,
+		Title:     "Dwaipayan",
 		Completed: true,
 	}
 
-	jsonData, err :=json.Marshal(todo)
+	jsonData, err := json.Marshal(todo)
 
 	if err != nil {
-		fmt.Println("Error Marshalling",err)
+		fmt.Println("Error Marshalling", err)
 		return
 	}
 
@@ -62,47 +62,45 @@ func performPostRequest(){
 
 	jsonReader := strings.NewReader(jsonString)
 
-	res, err :=	http.Post(myUrl, "application/json", jsonReader)
+	res, err := http.Post(myUrl, "application/json", jsonReader)
 
 	if err != nil {
-		fmt.Println("Getting error",err)
+		fmt.Println("Getting error", err)
 	}
 	defer res.Body.Close()
 
-	data,_ := ioutil.ReadAll(res.Body)
+	data, _ := ioutil.ReadAll(res.Body)
 	fmt.Println("Data: ", string(data))
-
 
 }
 
-func performUpdateRequest(){
+func performUpdateRequest() {
 	todo := Todo{
-		UserID: 8,
-		Title: "Dwaipayan Biswas",
+		UserID:    8,
+		Title:     "Dwaipayan Biswas",
 		Completed: true,
 	}
 
-		
 	jsonData, err := json.Marshal(todo)
 
 	if err != nil {
-		fmt.Println("Error Marshalling",err)
+		fmt.Println("Error Marshalling", err)
 		return
 	}
 
-	const myUrl = "https://jsonplaceholder.typicode.com/todos/1";
+	const myUrl = "https://jsonplaceholder.typicode.com/todos/1"
 
 	//create put request
 	jsonString := string(jsonData)
 
 	jsonReader := strings.NewReader(jsonString)
 
-	req, err := http.NewRequest(http.MethodPut,myUrl, jsonReader)
+	req, err := http.NewRequest(http.MethodPut, myUrl, jsonReader)
 	if err != nil {
 		fmt.Println("Error creating PUT Request", err)
 		return
 	}
-	req.Header.Set("Content-type","application/json")
+	req.Header.Set("Content-type", "application/json")
 
 	//send the request
 	client := http.Client{}
@@ -112,10 +110,35 @@ func performUpdateRequest(){
 		return
 	}
 	defer res.Body.Close()
-	data,_ := ioutil.ReadAll(res.Body)
-	fmt.Println("Response: ",string(data))
-	fmt.Println("Response status: ",res.Status)
-	
+	data, _ := ioutil.ReadAll(res.Body)
+	fmt.Println("Response: ", string(data))
+	fmt.Println("Response status: ", res.Status)
+
+}
+
+func performDeleteRequest() {
+
+	const myUrl = "https://jsonplaceholder.typicode.com/todos/1"
+
+	req, err := http.NewRequest(http.MethodDelete, myUrl, nil)
+
+	if err != nil {
+		fmt.Println("Error creating DELETE Request", err)
+		return
+	}
+
+	// req.Header.Set("Content-type", "application/json") --> Not required
+
+	client := http.Client{}
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println("Error sending request", err)
+		return
+	}
+	defer res.Body.Close()
+
+	fmt.Println("Response status: ", res.Status)
+
 }
 
 func main() {
@@ -125,6 +148,8 @@ func main() {
 
 	// performPostRequest()
 
-	performUpdateRequest()
+	// performUpdateRequest()
+
+	performDeleteRequest()
 
 }
